@@ -26,7 +26,7 @@ ENV UID=991 \
 LABEL description="php based on alpine" \
       tags="7.1.1 7.1 7 stable latest" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017021201"
+      build_ver="2017022801"
 
 COPY docker-php-ext-* /usr/local/bin/
 
