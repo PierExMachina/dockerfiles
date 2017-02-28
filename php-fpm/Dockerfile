@@ -1,8 +1,13 @@
 FROM xataz/alpine:3.5
 
-ARG PHP_VER=7.1.1
+ARG PHP_VER=7.1.2
 ARG PHP_MIRROR=http://fr2.php.net
-ARG PHP_GPG="A917B1ECDA84AEC2B568FED6F50ABC807BD5DCD0"
+ARG PHP_GPG="A917B1ECDA84AEC2B568FED6F50ABC807BD5DCD0 \
+            528995BFEDFBA7191D46839EF9BA0ADA31CBD89E \
+            1A4E8B7277C42E53DBA9C7B9BCAA30EA9C0D5763 \
+            6E4F6AB321FDC07F2C332E3AC2BF0BC433CFC8B3 \
+            0BD78B5F97500D450838F95DFE857D9A90D90EC1 \
+            0B96609E270F565C13292B24C13C70B87267B52D"
 ARG PHP_CONF="--enable-fpm \
                 --with-fpm-user=web \
                 --with-fpm-group=web \
@@ -24,7 +29,7 @@ ENV UID=991 \
     GID=991
 
 LABEL description="php based on alpine" \
-      tags="7.1.1 7.1 7 stable latest" \
+      tags="7.1.2 7.1 7 stable latest" \
       maintainer="xataz <https://github.com/xataz>" \
       build_ver="2017022801"
 
