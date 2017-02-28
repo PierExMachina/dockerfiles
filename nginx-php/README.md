@@ -18,11 +18,11 @@ Fast, flexible and pragmatic, PHP powers everything from your blog to the most p
 ### Build arguments
 * BUILD_CORES : Number of cpu's core for compile (default : empty for use all cores)
 * NGINX_VER : Nginx version (default : latest version)
-* NGINX_GPG : Nginx gpg fingerprint (default : "B0F4253373F8F6F510D42178520A9993A1C052F8")
+* NGINX_GPG : Nginx gpg fingerprint
 * NGINX_CONF : Nginx build arguments (default : see Dockerfile)
 * PHP_VER : PHP version (default : latest version)
 * PHP_MIRROR: Mirror for download PHP (default : http://fr2.php.net)
-* PHP_GPG : PHP gpg fingerprint (default : "1A4E8B7277C42E53DBA9C7B9BCAA30EA9C0D5763" )
+* PHP_GPG : PHP gpg fingerprint
 * PHP_CONF : PHP build arguments (default : see Dockerfile)
 * PHP_EXT_LIST : PHP extensions list, for install there (default : see Dockerfile)
 * CUSTOM_BUILD_PKGS : Necessary packages for build PHP extension, there packages are remove after build (default : see Dockerfile)
