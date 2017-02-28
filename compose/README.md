@@ -4,7 +4,7 @@
 > If you don't trust, you can build yourself.
 
 ## Tag available
-* latest, 1.11.1, 1.11, 1 [(Dockerfile)](https://github.com/xataz/dockerfiles/blob/master/compose/Dockerfile)
+* latest, 1.11.2, 1.11, 1 [(Dockerfile)](https://github.com/xataz/dockerfiles/blob/master/compose/Dockerfile)
 
 ## Description
 What is [docker-compose](https://github.com/docker/compose) ?
