@@ -65,3 +65,7 @@ for f in $(git diff HEAD~ --diff-filter=ACMRTUX --name-only | cut -d"/" -f1 | gr
         
     fi
 done
+
+if [ ${ERROR} -gt 0 ]; then
+    exit 1
+fi
