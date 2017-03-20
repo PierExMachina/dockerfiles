@@ -18,15 +18,12 @@ RUN export BUILD_DEPS="wget \
                     libressl-dev \
                     bash \
                     zlib-dev \
-                    libseccomp-dev@mainedge" \
-    && echo "@comuedge http://dl-4.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories \
-    && echo "@mainedge http://dl-4.alpinelinux.org/alpine/edge/main/" >> /etc/apk/repositories \
-    && apk upgrade -U \
-    && apk add ${BUILD_DEPS} \
+                    libseccomp" \
+    && apk add -U ${BUILD_DEPS} \
                     linux-pam \
-                    docker@comuedge \
+                    docker \
                     bash \
-                    libseccomp@mainedge \
+                    libseccomp \
                     tini \
                     libressl \
                     libcrypto1.0 \
