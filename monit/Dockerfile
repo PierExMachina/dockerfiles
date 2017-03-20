@@ -1,12 +1,12 @@
 FROM xataz/alpine:3.5
 
-ARG MONIT_VER=5.20.0
+ARG MONIT_VER=5.21.0
 ARG BUILD_CORES
 
 LABEL description="Monit based on alpine" \
-      tags="latest stable 5.20.0 5.20 5" \
+      tags="latest stable 5.21.0 5.21 5" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017021201"
+      build_ver="2017032001"
 
 ENV USER_MONIT="monit" \
     PASSWORD_MONIT="monit"

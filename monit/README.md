@@ -4,7 +4,7 @@
 > If you don't trust, you can build yourself.
 
 ## Tag available
-* latest, stable, 5.20.0, 5.20, 5 [(Dockerfile)](https://github.com/xataz/dockerfiles/blob/master/monit/Dockerfile)
+* latest, stable, 5.21.0, 5.21, 5 [(Dockerfile)](https://github.com/xataz/dockerfiles/blob/master/monit/Dockerfile)
 
 ## Description
 What is [monit](https://mmonit.com/monit/) ?
