@@ -1,11 +1,11 @@
 FROM xataz/alpine:3.5
 
 LABEL Description="reverse with nginx based on alpine" \
-      tags="latest mainline 1.11.9 1.11" \
+      tags="latest mainline 1.11.12 1.11" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017022801"
+      build_ver="2017032801"
 
-ARG NGINX_VER=1.11.10
+ARG NGINX_VER=1.11.12
 ARG NGINX_GPG="B0F4253373F8F6F510D42178520A9993A1C052F8"
 ARG BUILD_CORES
 ARG NGINX_CONF="--prefix=/nginx \
