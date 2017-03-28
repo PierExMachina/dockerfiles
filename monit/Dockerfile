@@ -6,7 +6,7 @@ ARG BUILD_CORES
 LABEL description="Monit based on alpine" \
       tags="latest stable 5.21.0 5.21 5" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017032001"
+      build_ver="2017032801"
 
 ENV USER_MONIT="monit" \
     PASSWORD_MONIT="monit"

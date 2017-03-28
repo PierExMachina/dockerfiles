@@ -10,7 +10,7 @@ EXPOSE 6379
 LABEL description="redis based on alpine" \
       tags="latest-cli stable-cli 3.2.8-cli 3.2-cli 3-cli" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017021201"
+      build_ver="2017032801"
 
 RUN export BUILD_DEPS="wget \
                     linux-headers \

@@ -9,7 +9,7 @@ ENV UID=991 \
 LABEL Description="cakebox based on alpine" \
       tags="latest" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017021201"
+      build_ver="2017032801"
 
 RUN export BUILD_DEPS="git \
                         make \

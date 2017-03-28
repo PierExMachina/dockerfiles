@@ -3,7 +3,7 @@ FROM xataz/alpine:3.5
 LABEL description="cardigann based on alpine" \
       tags="1.9.10 1.9 1 latest" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017022801"
+      build_ver="2017032801"
 
 ARG CARDIGANN_VER=1.9.10
 

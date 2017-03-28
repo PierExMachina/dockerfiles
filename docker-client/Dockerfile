@@ -8,7 +8,7 @@ ENV UID=991 \
 LABEL description="docker client for drone.io based on alpine" \
       tags="1.13.1 1.13 latest" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017022801"
+      build_ver="2017032801"
 
 
 RUN BUILD_DEPS="go \

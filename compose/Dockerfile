@@ -8,7 +8,7 @@ ENV UID=991 \
 LABEL description="docker-compose based on alpine" \
       tags="latest 1.11.2 1.11 1" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017022801"
+      build_ver="2017032801"
 
 COPY startup /usr/local/bin/startup
 
