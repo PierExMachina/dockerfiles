@@ -10,4 +10,6 @@ while read in; do
     fi
 done < /tmp/symlink
 
+find /data/Media/ -type d -empty -exec rm -r {} \;
+
 rm /tmp/symlink) &
