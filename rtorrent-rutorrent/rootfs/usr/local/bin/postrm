@@ -1,15 +1,11 @@
 #!/bin/sh
 
-(find /data/Media -type l > /tmp/symlink
-
-sleep 5
-while read in; do 
-    file "$in" | grep "broken symbolic link" > /dev/null 2>&1
+(sleep 10; find /data/Media -type l | while read in; do 
+    file "$in" | grep "broken symbolic link"
     if [ $? -ne 1 ]; then
+        echo "Delete $in"
         rm -f "$in"
     fi
-done < /tmp/symlink
+done
 
-find /data/Media/ -type d -empty -exec rm -r {} \;
-
-rm /tmp/symlink) &
+find /data/Media/ -type d -empty -exec rm -r {} \;) >> /tmp/postrm.log &
