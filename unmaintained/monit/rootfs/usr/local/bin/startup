@@ -1,0 +1,5 @@
+#!/bin/sh
+
+sed -i 's/<user>/'${USER_MONIT}'/;s/<passwd>/'${PASSWORD_MONIT}'/' /etc/monit/monitrc
+
+exec /sbin/tini -- /usr/local/bin/monit -I -c /etc/monit/monitrc
