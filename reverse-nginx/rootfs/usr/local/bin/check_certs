@@ -41,21 +41,15 @@ f_check_certs() {
             f_log INF "Certificate for ${domain} is good for another 10 days!"
         else
             f_log INF "Generate New Certificate for ${domain}"
-            /usr/local/bin/lego -a -m ${EMAIL} -d ${domain} --path /nginx/ssl --webroot /nginx/www/${domain} revoke
+            /usr/local/bin/lego -a -m ${EMAIL} -d ${domain} --path /nginx/ssl --webroot /nginx/www/${domain} renew
             if [ $? == 0 ]; then
-                rm -rf /nginx/ssl/certificates/${domain}.*
-                /usr/local/bin/lego -a -m ${EMAIL} -d ${domain} --path /nginx/ssl --webroot /nginx/www/${domain} -k ${FRONTEND_SSLTYPE} run
-                if [ $? == 0 ]; then
-                    if [ -e ${FULLCHAINFILE} ]; then
-                        head -$(grep -n "END CERTIFICATE" ${FULLCHAINFILE} | head -1 | cut -d: -f1) ${FULLCHAINFILE} > ${CERTFILE}
-                        tail -$(($(wc -l ${FULLCHAINFILE} | awk '{print $1}')-$(grep -n "END CERTIFICATE" ${FULLCHAINFILE} | head -1 | cut -d: -f1))) ${FULLCHAINFILE} > ${CHAINFILE}
-                        f_log INF "New Certificate for ${domain} generated" 
-                    fi
-                else 
-                    f_log ERR "New Certificate for ${domain} not generated"
+                if [ -e ${FULLCHAINFILE} ]; then
+                    head -$(grep -n "END CERTIFICATE" ${FULLCHAINFILE} | head -1 | cut -d: -f1) ${FULLCHAINFILE} > ${CERTFILE}
+                    tail -$(($(wc -l ${FULLCHAINFILE} | awk '{print $1}')-$(grep -n "END CERTIFICATE" ${FULLCHAINFILE} | head -1 | cut -d: -f1))) ${FULLCHAINFILE} > ${CHAINFILE}
+                    f_log INF "New Certificate for ${domain} generated" 
                 fi
-            else
-                f_log ERR "New Certificate for ${domain} not revoked"
+            else 
+                f_log ERR "New Certificate for ${domain} not generated"
             fi
         fi             
     done
