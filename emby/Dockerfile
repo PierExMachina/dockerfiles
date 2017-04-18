@@ -1,15 +1,15 @@
 FROM xataz/alpine:3.5
 
-ARG MEDIAINFO_VER=0.7.93
-ARG EMBY_VER=3.2.8
+ARG MEDIAINFO_VER=0.7.94
+ARG EMBY_VER=3.2.12
 
 ENV GID=991 \
     UID=991
 
 LABEL description="Emby based on alpine" \
-      tags="latest 3.2.8 3.2 3" \
+      tags="latest 3.2.12 3.2 3" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017032801"
+      build_ver="2017041801"
 
 RUN export BUILD_DEPS="build-base \
                         git \
