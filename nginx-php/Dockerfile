@@ -2,7 +2,7 @@ FROM xataz/alpine:3.5
 
 ARG BUILD_CORES
 
-ARG NGINX_VER=1.11.12
+ARG NGINX_VER=1.11.13
 ARG NGINX_GPG="B0F4253373F8F6F510D42178520A9993A1C052F8"
 ARG NGINX_CONF="--prefix=/nginx \
                 --sbin-path=/usr/local/sbin/nginx \
@@ -32,7 +32,7 @@ ARG NGINX_CONF="--prefix=/nginx \
                 --with-http_v2_module \
                 --with-ipv6"
 
-ARG PHP_VER=7.1.3
+ARG PHP_VER=7.1.4
 ARG PHP_MIRROR=http://fr2.php.net
 ARG PHP_GPG="A917B1ECDA84AEC2B568FED6F50ABC807BD5DCD0 \
             528995BFEDFBA7191D46839EF9BA0ADA31CBD89E \
@@ -96,7 +96,7 @@ LABEL description="nginx based on alpine" \
       nginx_version="${NGINX_VER}" \
       php_version="${PHP_VER}" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017032801"
+      build_ver="2017041801"
 
 COPY rootfs /
 
