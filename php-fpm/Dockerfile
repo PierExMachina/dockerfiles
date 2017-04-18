@@ -1,6 +1,6 @@
 FROM xataz/alpine:3.5
 
-ARG PHP_VER=7.1.3
+ARG PHP_VER=7.1.4
 ARG PHP_MIRROR=http://fr2.php.net
 ARG PHP_GPG="A917B1ECDA84AEC2B568FED6F50ABC807BD5DCD0 \
             528995BFEDFBA7191D46839EF9BA0ADA31CBD89E \
@@ -29,9 +29,9 @@ ENV UID=991 \
     GID=991
 
 LABEL description="php based on alpine" \
-      tags="7.1.3 7.1 7 stable latest" \
+      tags="7.1.4 7.1 7 stable latest" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017032801"
+      build_ver="2017041801"
 
 COPY docker-php-ext-* /usr/local/bin/
 
