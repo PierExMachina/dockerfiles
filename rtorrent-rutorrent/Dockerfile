@@ -14,7 +14,7 @@ ENV UID=991 \
 LABEL Description="rutorrent based on alpine" \
       tags="latest" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017032901"
+      build_ver="2017041801"
 
 RUN export BUILD_DEPS="build-base \
                         git \
