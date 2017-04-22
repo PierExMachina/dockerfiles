@@ -55,6 +55,5 @@ for f in $(find . -maxdepth 1 -type d | grep -v '^.$' | grep -v '.git' | grep -v
             docker images | grep tmp-build > /dev/null 2>&1
             if [ $? -eq 0 ]; then docker rmi tmp-build; fi
         fi
-        
     fi
 done
