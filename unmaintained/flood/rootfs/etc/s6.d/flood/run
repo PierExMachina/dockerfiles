@@ -1,0 +1,9 @@
+#!/bin/sh
+
+
+cd /usr/flood
+
+# Pre-start
+./node_modules/.bin/gulp dist
+
+exec node ./server/bin/www
