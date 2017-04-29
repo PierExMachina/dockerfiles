@@ -20,6 +20,7 @@ RUN export BUILD_DEPS="py2-pip \
                 libxml2 \
                 libxslt \
                 libffi \
+                libssl1.0 \
                 git \
                 su-exec \
                 s6 \
