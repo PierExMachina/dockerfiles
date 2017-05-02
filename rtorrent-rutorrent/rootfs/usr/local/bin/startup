@@ -18,7 +18,7 @@ if [ $WEBROOT != "/" ]; then
 
     ## Externalize rutorrent configuration
     if [ -d /config/rutorrent/conf ]; then 
-        rm -f /var/www/html${WEBROOT}/conf 
+        rm -rf /var/www/html${WEBROOT}/conf 
         ln -s /config/rutorrent/conf /var/www/html${WEBROOT}/conf
     else
         mv /var/www/html${WEBROOT}/conf /config/rutorrent/
@@ -26,7 +26,7 @@ if [ $WEBROOT != "/" ]; then
     fi
     ## Externalize rutorrent share
     if [ -d /config/rutorrent/share ]; then 
-        rm -f /var/www/html${WEBROOT}/share 
+        rm -rf /var/www/html${WEBROOT}/share 
         ln -s /config/rutorrent/share /var/www/html${WEBROOT}/share
     else
         mv /var/www/html${WEBROOT}/share /config/rutorrent/
@@ -52,7 +52,7 @@ else
 
     ## Externalize rutorrent configuration
     if [ -d /config/rutorrent/conf ]; then 
-        rm -f /var/www/html/torrent/conf 
+        rm -rf /var/www/html/torrent/conf 
         ln -s /config/rutorrent/conf /var/www/html/torrent/conf
     else
         mv /var/www/html/torrent/conf /config/rutorrent/
@@ -60,7 +60,7 @@ else
     fi
     ## Externalize rutorrent share
     if [ -d /config/rutorrent/share ]; then 
-        rm -f /var/www/html/torrent/share 
+        rm -rf /var/www/html/torrent/share 
         ln -s /config/rutorrent/share /var/www/html/torrent/share
     else
         mv /var/www/html/torrent/share /config/rutorrent/
