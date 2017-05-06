@@ -1,51 +1,65 @@
 #!/bin/bash
 
+## Variables
+
+CSI="\033["
+CEND="${CSI}0m"
+CRED="${CSI}1;31m"
+CGREEN="${CSI}1;32m"
+CYELLOW="${CSI}1;33m"
+CBLUE="${CSI}1;34m"
 FOLDER=$(dirname $0)
-DOCKER_PUSH=$1
+
+
+## Functions
 
 f_log() {
-  echo "=$1= $(date +%d/%m/%Y-%H:%M:%S) $2"
+    TYPE=$1
+    MSG=$2
+
+    if [ "${TYPE}" == "ERR" ]; then
+        COLOR=${CRED}
+    elif [ "${TYPE}" == "INF" ]; then
+        COLOR=${CBLUE}
+    elif [ "${TYPE}" == "WRN" ]; then
+        COLOR=${CYELLOW}
+    elif [ "${TYPE}" == "SUC" ]; then
+        COLOR=${CGREEN}
+    else
+        COLOR=${CEND}
+    fi
+
+    echo -e "${COLOR}=${TYPE}= $TIMENOW : ${MSG}${CEND}"
 }
 
-# Download dependencies
-docker pull xataz/alpine:3.5
+f_usage() {
+    echo "usage : ./build.sh [IMAGE_NAME]"
+}
+
+if [ $# -ne 1 ]; then
+    f_log ERR "Usage error"
+    f_usage
+    exit 1
+else
+    IMAGE_NAME=$1
+fi
 
 # Build rtorrent-rutorrent
-f_log INF "Build xataz/rtorrent-rutorrent:latest ..."
-docker build -t xataz/rtorrent-rutorrent:latest $FOLDER > /tmp/build.log 2>&1
-if [ $? == 0 ]; then
-  f_log INF "Build xataz/rtorrent-rutorrent:latest done"
-  if [ "$DOCKER_PUSH" == "push" ]; then
-    f_log INF "Push xataz/rtorrent-rutorrent:latest ..."
-    docker push xataz/rtorrent-rutorrent:latest > /tmp/push.log 2>&1
-    if [ $? == 0 ]; then
-      f_log INF "Push xataz/rtorrent-rutorrent:latest done"
-    else
-      f_log ERR "Push xataz/rtorrent-rutorrent:latest failed"
-      cat /tmp/push.log
-    fi
-  fi
+f_log INF "Build ${IMAGE_NAME}:latest ..."
+docker build -t ${IMAGE_NAME}:latest $FOLDER
+if [ $? -eq 0 ]; then
+    f_log SUC "Build ${IMAGE_NAME}:latest successful"
 else
-  f_log ERR "Build xataz/rtorrent-rutorrent:latest failed"
-  cat /tmp/build.log
+    f_log ERR "Build ${IMAGE_NAME}:latest failed"
+    exit 1
 fi
-f_log INF "Build xataz/rtorrent-rutorrent:filebot ..."
-docker build --build-arg WITH_FILEBOT=YES -t xataz/rtorrent-rutorrent:filebot $FOLDER > /tmp/build.log 2>&1
-if [ $? == 0 ]; then
-  f_log INF "Build xataz/rtorrent-rutorrent:filebot done"
-  docker tag xataz/rtorrent-rutorrent:filebot xataz/rtorrent-rutorrent:latest-filebot
-    if [ "$DOCKER_PUSH" == "push" ]; then
-    f_log INF "Push xataz/rtorrent-rutorrent:filebot ..."
-    docker push xataz/rtorrent-rutorrent:filebot > /tmp/push.log 2>&1
-    docker push xataz/rtorrent-rutorrent:latest-filebot >> /tmp/push.log 2>&1
-    if [ $? == 0 ]; then
-      f_log INF "Push xataz/rtorrent-rutorrent:filebot done"
-    else
-      f_log ERR "Push xataz/rtorrent-rutorrent:filebot failed"
-      cat /tmp/push.log
-    fi
-  fi
+
+f_log INF "Build ${IMAGE_NAME}:filebot ..."
+docker build --build-arg WITH_FILEBOT=YES -t ${IMAGE_NAME}:filebot
+if [ $? -eq 0 ]; then
+    f_log SUC "Build ${IMAGE_NAME}:filebot successful"
+    docker tag ${IMAGE_NAME}:filebot ${IMAGE_NAME}:latest-filebot
 else
-  f_log ERR "Build xataz/rtorrent-rutorrent:filebot failed"
-  cat /tmp/build.log
+    f_log ERR "Build ${IMAGE_NAME}:filebot failed"
+    exit 1
 fi
