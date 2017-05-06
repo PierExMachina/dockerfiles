@@ -55,10 +55,10 @@ else
 fi
 
 f_log INF "Build ${IMAGE_NAME}:filebot ..."
-docker build --build-arg WITH_FILEBOT=YES -t ${IMAGE_NAME}:filebot
+docker build --build-arg WITH_FILEBOT=YES -t ${IMAGE_NAME}:filebot ${FOLDER}
 if [ $? -eq 0 ]; then
     f_log SUC "Build ${IMAGE_NAME}:filebot successful"
-    docker tag ${IMAGE_NAME}:filebot ${IMAGE_NAME}:latest-filebot
+    docker tag ${IMAGE_NAME}:filebot ${IMAGE_NAME}:latest-filebot ${FOLDER}
 else
     f_log ERR "Build ${IMAGE_NAME}:filebot failed"
     exit 1

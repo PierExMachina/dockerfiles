@@ -82,4 +82,5 @@ if [ -d ${IMAGE} ]; then
     if [ $? -eq 0 ]; then docker rmi tmp-build-${IMAGE}; fi
 else
     f_log ERR "${IMAGE} not found"
+    exit 1
 fi
