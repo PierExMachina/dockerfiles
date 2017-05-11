@@ -9,7 +9,7 @@ NEW_NGINX_STABLE_VERSION=$(curl http://nginx.org/en/download.html 2> /dev/null |
 f_gen_tag() {
     VERSION=$1
 
-    TAGS="latest $2 ${VERSION} $(echo ${VERSION} | cut -d'.' -f '1 2')"
+    TAGS="$2 ${VERSION} $(echo ${VERSION} | cut -d'.' -f '1 2')"
 }
 
 f_maj_dockerfile() {
@@ -30,7 +30,7 @@ f_maj_readme() {
 
 if [ "${NGINX_MAINLINE_VERSION}" != "${NEW_NGINX_MAINLINE_VERSION}" ]; then
     echo "Update nginx mainline to ${NEW_NGINX_MAINLINE_VERSION}"
-    f_gen_tag ${NEW_NGINX_MAINLINE_VERSION} "mainline"
+    f_gen_tag ${NEW_NGINX_MAINLINE_VERSION} "latest mainline"
     f_maj_dockerfile "mainline" ${NEW_NGINX_MAINLINE_VERSION}
     f_maj_readme "mainline"
 fi
