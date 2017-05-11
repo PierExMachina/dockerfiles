@@ -5,5 +5,6 @@ pipeline:
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/xataz/.docker/config.json:/root/.docker/config.json
     commands:
-      - chmod +x .ci/build.sh
-      - .ci/build.sh push
+      - chmod +x .drone/build.sh .drone/push.sh
+      - .drone/build.sh
+      - .drone/push.sh

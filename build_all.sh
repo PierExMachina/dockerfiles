@@ -11,7 +11,7 @@ CGREEN="${CSI}1;32m"
 CYELLOW="${CSI}1;33m"
 CBLUE="${CSI}1;34m"
 
-for f in $(find . -maxdepth 1 -type d | grep -v '^.$' | grep -v '.git' | grep -v wip | grep -v unmaintained | sed 's|./||'); do
+for f in $(find . -maxdepth 1 -type d | grep -v '^.$' | grep -v '.git' | grep -v wip | grep -v unmaintained | grep -v .drone | sed 's|./||'); do
     if [ -d $f ]; then
         if [ -e $f/build.sh ]; then
             chmod +x $f/build.sh

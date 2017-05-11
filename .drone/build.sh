@@ -18,12 +18,14 @@ docker pull xataz/node:7
 
 git fetch -q "$REPO" "refs/heads/$BRANCH"
 
-for f in $(git diff HEAD~ --diff-filter=ACMRTUX --name-only | cut -d"/" -f1 | grep -v wip | grep -v unmaintained | grep -v .ci | uniq); do
+echo "" > /tmp/images.txt
+
+for f in $(git diff HEAD~ --diff-filter=ACMRTUX --name-only | cut -d"/" -f1 | grep -v wip | grep -v unmaintained | grep -v .drone | uniq); do
     if [ -d $f ]; then
         if [ -e $f/build.sh ]; then
             chmod +x $f/build.sh
             echo 
-            ./$f/build.sh $DOCKER_PUSH
+            ./$f/build.sh ${USER}/$f
         else
             for dockerfile in $(find $f -name Dockerfile); do
                 FOLDER=$(dirname $dockerfile)
@@ -41,20 +43,10 @@ for f in $(git diff HEAD~ --diff-filter=ACMRTUX --name-only | cut -d"/" -f1 | gr
                         docker tag tmp-build-$f ${USER}/${f}:${tag}
                         if [ $? != 0 ]; then
                             echo -e "Tags tmp-build-$f to ${USER}/${f}:${tag} [${CRED}KO${CEND}]"
+                            echo ${USER}/${f}:${tag} >> /tmp/images.txt
                             ERROR=1
                         else
                             echo -e "Tags tmp-build-$f to ${USER}/${f}:${tag} [${CGREEN}OK${CEND}]"
-                            if [ "$DOCKER_PUSH" == "push" ]; then
-                                echo -e "Push ${USER}/${f}:${tag} [${CYELLOW}..${CEND}]"
-                                docker push ${USER}/${f}:${tag} > $LOG_FILE 2>&1
-                                if [ $? != 0 ]; then
-                                    echo -e "Push ${USER}/${f}:${tag} [${CRED}KO${CEND}]"
-                                    ERROR=1
-                                    cat $LOG_FILE
-                                else
-                                    echo -e "Push ${USER}/${f}:${tag} [${CGREEN}OK${CEND}]"
-                                fi
-                            fi
                         fi
                     done
                 fi
