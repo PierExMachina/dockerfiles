@@ -18,7 +18,7 @@ docker pull xataz/node:7
 
 git fetch -q "$REPO" "refs/heads/$BRANCH"
 
-echo "" > /tmp/images.txt
+echo "" > .tmp/images.txt
 
 for f in $(git diff HEAD~ --diff-filter=ACMRTUX --name-only | cut -d"/" -f1 | grep -v wip | grep -v unmaintained | grep -v .drone | uniq); do
     if [ -d $f ]; then
@@ -43,7 +43,7 @@ for f in $(git diff HEAD~ --diff-filter=ACMRTUX --name-only | cut -d"/" -f1 | gr
                         docker tag tmp-build-$f ${USER}/${f}:${tag}
                         if [ $? != 0 ]; then
                             echo -e "Tags tmp-build-$f to ${USER}/${f}:${tag} [${CRED}KO${CEND}]"
-                            echo ${USER}/${f}:${tag} >> /tmp/images.txt
+                            echo ${USER}/${f}:${tag} >> .tmp/images.txt
                             ERROR=1
                         else
                             echo -e "Tags tmp-build-$f to ${USER}/${f}:${tag} [${CGREEN}OK${CEND}]"
