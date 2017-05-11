@@ -18,7 +18,7 @@ docker pull xataz/node:7
 
 git fetch -q "$REPO" "refs/heads/$BRANCH"
 
-for f in $(git diff HEAD~ --diff-filter=ACMRTUX --name-only | cut -d"/" -f1 | grep -v wip | grep -v unmaintained | grep -b .ci | uniq); do
+for f in $(git diff HEAD~ --diff-filter=ACMRTUX --name-only | cut -d"/" -f1 | grep -v wip | grep -v unmaintained | grep -v .ci | uniq); do
     if [ -d $f ]; then
         if [ -e $f/build.sh ]; then
             chmod +x $f/build.sh
