@@ -18,6 +18,7 @@ docker pull xataz/node:7
 
 git fetch -q "$REPO" "refs/heads/$BRANCH"
 
+mkdir .tmp
 echo "" > .tmp/images.txt
 
 for f in $(git diff HEAD~ --diff-filter=ACMRTUX --name-only | cut -d"/" -f1 | grep -v wip | grep -v unmaintained | grep -v .drone | uniq); do
