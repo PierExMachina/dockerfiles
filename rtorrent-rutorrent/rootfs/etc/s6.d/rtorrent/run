@@ -1,3 +1,5 @@
 #!/bin/sh
 
-exec rtorrent
+export TERM=xterm
+
+exec s6-fghack screen -dmS rtorrent rtorrent

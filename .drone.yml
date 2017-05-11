@@ -1,13 +1,10 @@
 pipeline:
   build:
-    image: xataz/docker-client:1.13.1
+    image: docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/xataz/.docker/config.json:/home/docker/.docker/config.json
       - /home/xataz/.docker/config.json:/root/.docker/config.json
-    environment:
-      - UID=1000
-      - GID=991
     commands:
-      - chmod +x build.sh
-      - ./build.sh push
+      - chmod +x .ci/build.sh
+      - .ci/build.sh push
