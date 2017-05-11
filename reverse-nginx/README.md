@@ -3,7 +3,7 @@
 # BETA VERSION ACTUALY !!!!!
 
 ## Tag available
-* latest, mainline, 1.11.13, 1.11 [(Dockerfile)](https://github.com/xataz/dockerfiles/blob/master/reverse-nginx/mainline/Dockerfile)
+* latest, mainline, 1.13.0, 1.13 [(Dockerfile)](https://github.com/xataz/dockerfiles/blob/master/reverse-nginx/Dockerfile)
 
 ## Features
 * No ROOT process
