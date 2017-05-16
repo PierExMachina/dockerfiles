@@ -4,6 +4,7 @@ ARG BUILD_CORES
 ARG MEDIAINFO_VER=0.7.92.1
 ARG RTORRENT_VER=0.9.6
 ARG LIBTORRENT_VER=0.13.6
+ARG LIBZEN_VER=0.4.31
 
 ENV UID=991 \
     GID=991 \
@@ -50,6 +51,7 @@ RUN export BUILD_DEPS="build-base \
                 tar \
                 xz \
                 screen \
+                java-jna-native \
     && cd /tmp \
     && git clone https://github.com/esmil/mktorrent \
     && svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c \
@@ -57,8 +59,16 @@ RUN export BUILD_DEPS="build-base \
     && git clone -b ${RTORRENT_VER} https://github.com/rakshasa/rtorrent.git \
     && wget http://mediaarea.net/download/binary/mediainfo/${MEDIAINFO_VER}/MediaInfo_CLI_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
     && wget http://mediaarea.net/download/binary/libmediainfo0/${MEDIAINFO_VER}/MediaInfo_DLL_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
+    && wget http://downloads.sourceforge.net/zenlib/libzen_${LIBZEN_VER}.tar.gz \
+    && tar xzf libzen_${LIBZEN_VER}.tar.gz \
     && tar xzf MediaInfo_DLL_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
     && tar xzf MediaInfo_CLI_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
+    && cd /tmp/ZenLib/Project/GNU/Library \
+    && ./autogen.sh \
+    && ./configure --prefix=/usr \
+                    --enable-shared \
+                    --disable-static \
+    && make && make install \
     && cd /tmp/mktorrent \
     && make -j ${BUILD_CORES-$(grep -c "processor" /proc/cpuinfo)} \
     && make install \
