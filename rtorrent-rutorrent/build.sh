@@ -46,19 +46,22 @@ fi
 
 # Build rtorrent-rutorrent
 f_log INF "Build ${IMAGE_NAME}:latest ..."
-docker build -t ${IMAGE_NAME}:latest $FOLDER
+docker build -t ${IMAGE_NAME}:latest $FOLDER > /tmp/build.log 2>&1
 if [ $? -eq 0 ]; then
     f_log SUC "Build ${IMAGE_NAME}:latest successful"
+    echo ${IMAGE_NAME}:latest >> .tmp/images.txt
 else
     f_log ERR "Build ${IMAGE_NAME}:latest failed"
     exit 1
 fi
 
 f_log INF "Build ${IMAGE_NAME}:filebot ..."
-docker build --build-arg WITH_FILEBOT=YES -t ${IMAGE_NAME}:filebot ${FOLDER}
+docker build --build-arg WITH_FILEBOT=YES -t ${IMAGE_NAME}:filebot ${FOLDER} > /tmp/build.log 2>&1
 if [ $? -eq 0 ]; then
     f_log SUC "Build ${IMAGE_NAME}:filebot successful"
     docker tag ${IMAGE_NAME}:filebot ${IMAGE_NAME}:latest-filebot
+    echo ${IMAGE_NAME}:filebot >> .tmp/images.txt
+    echo ${IMAGE_NAME}:latest-filebot >> .tmp/images.txt
 else
     f_log ERR "Build ${IMAGE_NAME}:filebot failed"
     exit 1
