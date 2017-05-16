@@ -64,7 +64,7 @@ RUN export BUILD_DEPS="build-base \
     && tar xzf MediaInfo_DLL_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
     && tar xzf MediaInfo_CLI_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
     && cd /tmp/ZenLib/Project/GNU/Library \
-    && ./autogen.sh \
+    && ./autogen \
     && ./configure --prefix=/usr \
                     --enable-shared \
                     --disable-static \
