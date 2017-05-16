@@ -28,6 +28,7 @@ f_log() {
 
 f_check_certs() {
     LIST_DOMAINS=$(ls /nginx/ssl/certificates | grep .crt | grep -v issuer | sed 's|.crt||g')
+    RELOAD_NGINX=0
 
     for domain in ${LIST_DOMAINS}; do 
         CERTFILE=/nginx/ssl/certificates/${domain}.cert.pem
@@ -46,6 +47,7 @@ f_check_certs() {
                 if [ -e ${FULLCHAINFILE} ]; then
                     head -$(grep -n "END CERTIFICATE" ${FULLCHAINFILE} | head -1 | cut -d: -f1) ${FULLCHAINFILE} > ${CERTFILE}
                     tail -$(($(wc -l ${FULLCHAINFILE} | awk '{print $1}')-$(grep -n "END CERTIFICATE" ${FULLCHAINFILE} | head -1 | cut -d: -f1))) ${FULLCHAINFILE} > ${CHAINFILE}
+                    RELOAD_NGINX=1
                     f_log INF "New Certificate for ${domain} generated" 
                 fi
             else 
@@ -56,3 +58,7 @@ f_check_certs() {
 }
 
 f_check_certs
+
+if [ ${RELOAD_NGINX} -eq 1 ]; then
+    nginx reload
+fi
