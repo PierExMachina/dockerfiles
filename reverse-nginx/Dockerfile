@@ -3,7 +3,7 @@ FROM xataz/alpine:3.5
 LABEL Description="reverse with nginx based on alpine" \
       tags="latest mainline 1.13.0 1.13" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017051101"
+      build_ver="2017051901"
 
 ARG NGINX_VER=1.13.0
 ARG NGINX_GPG="B0F4253373F8F6F510D42178520A9993A1C052F8"
@@ -61,7 +61,7 @@ RUN export BUILD_DEPS="build-base \
     && wget http://nginx.org/download/nginx-${NGINX_VER}.tar.gz \
     && wget http://nginx.org/download/nginx-${NGINX_VER}.tar.gz.asc \
     && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$NGINX_GPG" \
-	&& gpg --batch --verify nginx-${NGINX_VER}.tar.gz.asc nginx-${NGINX_VER}.tar.gz \
+    && gpg --batch --verify nginx-${NGINX_VER}.tar.gz.asc nginx-${NGINX_VER}.tar.gz \
     && tar xzf nginx-${NGINX_VER}.tar.gz \
     && cd /tmp/nginx-${NGINX_VER} \
     && ./configure ${NGINX_CONF} \            
