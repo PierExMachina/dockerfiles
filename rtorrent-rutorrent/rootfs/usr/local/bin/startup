@@ -92,13 +92,29 @@ else
     ln -s /config/rtorrent/.rtorrent.rc /home/torrent/.rtorrent.rc
 fi
 
+## Filebot
 if [ -e /filebot ]; then
     mkdir -p /data/Media/Movies
     mkdir -p /data/Media/TV
     mkdir -p /data/Media/Animes
     mkdir -p /data/Media/Music
     chown -R torrent:torrent /filebot
+
+    grep "system.method.set_key=event.download.finished" /home/torrent/.rtorrent.rc > /dev/null 2>&1
+    [ $? -ne 0 ] && echo 'system.method.set_key=event.download.finished,filebot,"execute={/usr/local/bin/postdl,$d.get_base_path=,$d.get_name=,$d.get_custom1=}"' >> /home/torrent/.rtorrent.rc
+
+    grep "system.method.set_key=event.download.erased" /home/torrent/.rtorrent.rc > /dev/null 2>&1
+    [ $? -ne 0 ] && echo 'system.method.set_key=event.download.erased,filebot_cleaner,"execute=/usr/local/bin/postrm"' >> /home/torrent/.rtorrent.rc
+
+    sed -e 's#<FILEBOT_RENAME_MOVIES>#'"$FILEBOT_RENAME_MOVIES"'#' \
+        -e 's#<FILEBOT_RENAME_METHOD>#'"$FILEBOT_RENAME_METHOD"'#' \
+        -e 's#<FILEBOT_RENAME_MUSICS>#'"$FILEBOT_RENAME_MUSICS"'#' \
+        -e 's#<FILEBOT_RENAME_SERIES>#'"$FILEBOT_RENAME_SERIES"'#' \
+        -e 's#<FILEBOT_RENAME_ANIMES>#'"$FILEBOT_RENAME_ANIMES"'#' -i /usr/local/bin/postdl
+
+    chmod +x /usr/local/bin/post*
 fi
+
 
 chown -R torrent:torrent /data /var/www /etc/s6.d /home/torrent /var/lib/nginx /etc/php7 /etc/nginx /var/log /tmp /config
 
