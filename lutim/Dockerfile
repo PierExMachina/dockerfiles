@@ -44,7 +44,7 @@ RUN BUILD_DEPS="build-base \
     && rm -rf cpanfile.snapshot \
     && carton install \
     && apk del ${BUILD_DEPS} \
-    && rm -rf /var/cache/apk/* /root/.cpan* /usr/lutim/local/cache/* /usr/lufi/utilities
+    && rm -rf /var/cache/apk/* /root/.cpan* /usr/lutim/local/cache/* /usr/lutim/utilities
 
 VOLUME /usr/lutim/data/ /usr/lutim/files
 
