@@ -1,9 +1,9 @@
 FROM xataz/alpine:3.6
 
-ARG CERTBOT_VER=v0.14.0
+ARG CERTBOT_VER=v0.14.2
 
 LABEL description="Letsencrypt based on alpine" \
-      tags="latest 0.14.1 0.14" \
+      tags="latest 0.14.2 0.14" \
       maintainer="xataz <https://github.com/xataz>" \
       build_ver="2017052701"
 
