@@ -120,7 +120,7 @@ ENV FILEBOT_RENAME_METHOD="symlink" \
     FILEBOT_RENAME_MUSICS="{n}/{fn}"
 
 RUN if [ "${WITH_FILEBOT}" == "YES" ]; then \
-        apk add -U openjdk8-jre java-jna-native binutils \
+        apk add -U openjdk8-jre java-jna-native binutils wget \
         && mkdir /filebot \
         && cd /filebot \
         && wget http://downloads.sourceforge.net/project/filebot/filebot/FileBot_${FILEBOT_VER}/FileBot_${FILEBOT_VER}-portable.tar.xz -O /filebot/filebot.tar.xz \
@@ -131,6 +131,7 @@ RUN if [ "${WITH_FILEBOT}" == "YES" ]; then \
         && tar xvf chromaprint-fpcalc-${CHROMAPRINT_VER}-linux-x86_64.tar.gz \
         && mv chromaprint-fpcalc-${CHROMAPRINT_VER}-linux-x86_64/fpcalc /usr/local/bin \
         && strip -s /usr/local/bin/fpcalc \
+        && apk del binutils wget \
         && rm -rf /var/cache/apk/* /tmp/* /filebot/FileBot_${FILEBOT_VER}-portable.tar.xz /filebot/chromaprint-fpcalc-${CHROMAPRINT_VER}-linux-x86_64.tar.gz /filebot/chromaprint-fpcalc-${CHROMAPRINT_VER}-linux-x86_64 \
     ;fi
 
