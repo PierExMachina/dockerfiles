@@ -27,7 +27,8 @@ RUN export BUILD_DEPS="build-base \
                         cppunit-dev \
                         libressl-dev \
                         ncurses-dev \
-                        curl-dev" \
+                        curl-dev \
+                        zlib-dev" \
     && apk add -U ${BUILD_DEPS} \
                 ffmpeg \
                 ca-certificates \
@@ -106,8 +107,7 @@ RUN export BUILD_DEPS="build-base \
     && apk del ${BUILD_DEPS} \
     && rm -rf /var/cache/apk/* /tmp/* \
     && deluser svn \
-    && delgroup svnusers \
-    && ln -s /usr/bin/php7 /usr/bin/php
+    && delgroup svnusers
 
 ARG WITH_FILEBOT=NO
 ARG FILEBOT_VER=4.7.9
