@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 
 LABEL Description="sonerezh based on alpine" \
       tags="latest 1.1.1 1.1 1" \

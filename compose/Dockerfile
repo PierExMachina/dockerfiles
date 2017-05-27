@@ -1,4 +1,4 @@
-FROM xataz/alpine:3.5
+FROM xataz/alpine:3.6
 
 ARG COMPOSE_VER=1.13.0
 
@@ -8,7 +8,7 @@ ENV UID=991 \
 LABEL description="docker-compose based on alpine" \
       tags="latest 1.13.0 1.13 1" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017052301"
+      build_ver="2017052701"
 
 COPY startup /usr/local/bin/startup
 

@@ -1,9 +1,9 @@
-FROM xataz/alpine:3.5
+FROM xataz/alpine:3.6
 
 LABEL Description="nginx based on alpine" \
       tags="latest mainline 1.13.0 1.13" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017052301"
+      build_ver="2017052701"
 
 ARG NGINX_VER=1.13.0
 ARG NGINX_GPG="B0F4253373F8F6F510D42178520A9993A1C052F8"

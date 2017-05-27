@@ -1,4 +1,4 @@
-FROM xataz/alpine:3.5
+FROM xataz/alpine:3.6
 
 ARG BUILD_CORES
 

@@ -6,7 +6,7 @@ ENV UID=991 \
 LABEL description="bower based on alpine" \
       tags="latest" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017052301"
+      build_ver="2017052701"
 
 COPY startup /usr/local/bin/startup
 

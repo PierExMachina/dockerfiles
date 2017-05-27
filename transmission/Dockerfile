@@ -1,9 +1,9 @@
-FROM xataz/alpine:3.5
+FROM xataz/alpine:3.6
 
 LABEL description="transmission based on alpine" \
       tags="latest" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017052301"
+      build_ver="2017052701"
 
 ENV UID=991 \
     GID=991 \

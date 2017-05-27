@@ -1,4 +1,4 @@
-FROM xataz/alpine:3.5
+FROM xataz/alpine:3.6
 
 LABEL description="cardigann based on alpine" \
       tags="1.9.10 1.9 1 latest" \

@@ -1,4 +1,4 @@
-FROM xataz/alpine:3.5
+FROM xataz/alpine:3.6
 
 ARG REDIS_VER=3.2.9
 
@@ -10,7 +10,7 @@ EXPOSE 6379
 LABEL description="redis based on alpine" \
       tags="latest-cli stable-cli 3.2.9-cli 3.2-cli 3-cli" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017052301"
+      build_ver="2017052701"
 
 RUN export BUILD_DEPS="wget \
                     linux-headers \
