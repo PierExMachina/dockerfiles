@@ -3,7 +3,7 @@
 REPO='https://github.com/xataz/dockerfiles'
 BRANCH='master'
 USER='xataz'
-DOCKER_PUSH=$1
+DOCKERFILE=$1
 ERROR=0
 
 CSI="\033["
@@ -13,7 +13,28 @@ CGREEN="${CSI}1;32m"
 CYELLOW="${CSI}1;33m"
 CBLUE="${CSI}1;34m"
 
-docker pull xataz/alpine:3.5
+
+## Functions
+f_log() {
+    TYPE=$1
+    MSG=$2
+
+    if [ "${TYPE}" == "ERR" ]; then
+        COLOR=${CRED}
+    elif [ "${TYPE}" == "INF" ]; then
+        COLOR=${CBLUE}
+    elif [ "${TYPE}" == "WRN" ]; then
+        COLOR=${CYELLOW}
+    elif [ "${TYPE}" == "SUC" ]; then
+        COLOR=${CGREEN}
+    else
+        COLOR=${CEND}
+    fi
+
+    echo -e "${COLOR}=${TYPE}= $TIMENOW : ${MSG}${CEND}"
+}
+
+docker pull xataz/alpine:3.6
 docker pull xataz/node:7
 
 git fetch -q "$REPO" "refs/heads/$BRANCH"
@@ -22,31 +43,30 @@ mkdir .tmp
 echo "" > .tmp/images.txt
 
 for f in $(git diff HEAD~ --diff-filter=ACMRTUX --name-only | cut -d"/" -f1 | grep -v wip | grep -v unmaintained | grep -v .drone | uniq); do
-    if [ -d $f ]; then
-        if [ -e $f/build.sh ]; then
-            chmod +x $f/build.sh
-            echo 
-            ./$f/build.sh ${USER}/$f
+    if [ $f == ${DOCKERFILE} ]; then
+        if [ -e .drone/build_${DOCKERFILE}.sh ]; then
+            chmod +x .drone/build_${DOCKERFILE}.sh
+            .drone/build_${DOCKERFILE}.sh
         else
             for dockerfile in $(find $f -name Dockerfile); do
                 FOLDER=$(dirname $dockerfile)
                 LOG_FILE="/tmp/${f}_$(date +%Y%m%d).log"
-                echo -e "Build $dockerfile with context $FOLDER on tmp-build-$f [${CYELLOW}..${CEND}]"
+                f_log INF "Build $dockerfile with context $FOLDER on tmp-build-$f ..."
                 docker build -f $dockerfile -t tmp-build-$f $FOLDER > $LOG_FILE 2>&1
                 if [ $? != 0 ]; then
-                    echo -e "Build $dockerfile with context $FOLDER on tmp-build-$f [${CRED}KO${CEND}]"
+                    f_log ERR "Build $dockerfile with context $FOLDER on tmp-build-$f failed"
                     ERROR=1
                     cat $LOG_FILE
                 else
-                    echo -e "Build $dockerfile with context $FOLDER on tmp-build-$f [${CGREEN}OK${CEND}]"
+                    f_log SUC "Build $dockerfile with context $FOLDER on tmp-build-$f successful"
                     for tag in $(grep "tags=" $dockerfile | cut -d'"' -f2); do
-                        echo -e "Tags tmp-build-$f to ${USER}/${f}:${tag} [${CYELLOW}..${CEND}]"
-                        docker tag tmp-build-$f ${USER}/${f}:${tag}
+                        f_log INF "Tags tmp-build-$f to ${USER}/${f}:${tag} ..."
+                        docker tag tmp-build-$f ${USER}/${f}:${tag} > $LOG_FILE 2>&1
                         if [ $? != 0 ]; then
-                            echo -e "Tags tmp-build-$f to ${USER}/${f}:${tag} [${CRED}KO${CEND}]"
+                            f_log ERR "Tags tmp-build-$f to ${USER}/${f}:${tag} failed"
                             ERROR=1
                         else
-                            echo -e "Tags tmp-build-$f to ${USER}/${f}:${tag} [${CGREEN}OK${CEND}]"
+                            f_log SUC "Tags tmp-build-$f to ${USER}/${f}:${tag} successful"
                             echo ${USER}/${f}:${tag} >> .tmp/images.txt
                         fi
                     done
@@ -54,8 +74,9 @@ for f in $(git diff HEAD~ --diff-filter=ACMRTUX --name-only | cut -d"/" -f1 | gr
             done
             docker images | grep tmp-build-$f > /dev/null 2>&1
             if [ $? -eq 0 ]; then docker rmi tmp-build-$f; fi
-        fi
-        
+        fi  
+    else
+        f_log INF "No build for ${DOCKERFILE}"
     fi
 done
 
