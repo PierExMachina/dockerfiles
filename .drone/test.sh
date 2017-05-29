@@ -40,7 +40,7 @@ if [ -e .tmp/images.txt ]; then
             .drone/test_${DOCKERFILE}.sh
         else
             f_log INF "Run container of ${image}"
-            docker run -d -P --name test-container ${image}
+            docker run -d --name test-container ${image}
             sleep 30
             f_log INF "Test if container is running"
             docker ps | grep test-container > /dev/null 2>&1
@@ -50,7 +50,7 @@ if [ -e .tmp/images.txt ]; then
                 exit 1
             else
                 f_log SUC "The container is running"
-                for port in $(docker inspect --format='{{range $p, $conf := .NetworkSettings.Ports}} {{$p}} -> {{(index $conf 0).HostPort}} {{end}}' test-container | awk '{print $3}'); do
+                for port in $(docker inspect --format='{{range $p, $conf := .NetworkSettings.Ports}} {{$p}} {{end}}' test-container | cut -d/ -f1); do
                     f_log INF "Test if port $port is exposed"
                     curl $(docker inspect --format='{{.NetworkSettings.IPAddress}}' test-container):$port > /dev/null 2>&1
                     if [ $? -ne 0 ]; then
