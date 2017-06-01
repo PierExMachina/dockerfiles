@@ -33,7 +33,7 @@ f_log() {
 }
 
 f_log INF "Create network ..."
-docker network create test > /dev/null 2>&1
+docker network create test
 if [ $? -ne 0 ]; then
   f_log SUC "Create network successful"
 else
@@ -42,7 +42,7 @@ else
 fi
 
 f_log INF "Run nginx ..."
-docker run -d --label reverse.backend.port=8080 --label reverse.frontend.domain=docker.local --name nginx_test xataz/nginx > /dev/null 2>&1
+docker run -d --label reverse.backend.port=8080 --label reverse.frontend.domain=docker.local --network test --name nginx_test xataz/nginx
 if [ $? -ne 0 ]; then
   f_log SUC "Run nginx successful"
 else
@@ -51,7 +51,7 @@ else
 fi
 
 f_log INF "Run reverse-nginx ..."
-docker run -d --name reverse_test xataz/reverse-nginx > /dev/null 2>&1
+docker run -d --name reverse_test --network test xataz/reverse-nginx
 if [ $? -ne 0 ]; then
   f_log SUC "Run reverse-nginx successful"
 else
@@ -61,7 +61,7 @@ fi
 
 sleep 30
 f_log INF "Try curl on reverse-nginx ..."
-curl $(docker inspect --format='{{.NetworkSettings.IPAddress}}' test-container):8080 reverse_test > /dev/null 2>&1
+curl $(docker inspect --format='{{.NetworkSettings.IPAddress}}' reverse_test):8080 reverse_test
 if [ $? -ne 0 ]; then
   f_log SUC "Try curl on reverse-nginx successful"
 else
@@ -70,7 +70,7 @@ else
 fi
 
 f_log INF "Delete nginx && reverse-nginx ..."
-docker rm -f nginx_test reverse_test > /dev/null 2>&1
+docker rm -f nginx_test reverse_test >
 if [ $? -ne 0 ]; then
   f_log SUC "Delete container successful"
 else
