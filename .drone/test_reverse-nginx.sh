@@ -32,11 +32,13 @@ f_log() {
     echo -e "${COLOR}=${TYPE}= $TIMENOW : ${MSG}${CEND}"
 }
 
+
+NETWORK=nt_$(date +%Y%m%d)
+
 docker rm -f nginx_test reverse_test > /dev/null 2>&1
-docker network rm -f test > /dev/null 2>&1
 
 f_log INF "Create network ..."
-docker network create test
+docker network create ${NETWORK}
 if [ $? -eq 0 ]; then
   f_log SUC "Create network successful"
 else
@@ -82,7 +84,7 @@ else
 fi
 
 f_log INF "Delete network ..."
-docker network rm test > /dev/null 2>&1
+docker network rm ${NETWORK} > /dev/null 2>&1
 if [ $? -eq 0 ]; then
   f_log SUC "Delete network successful"
 else
