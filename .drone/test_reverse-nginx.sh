@@ -35,7 +35,8 @@ f_log() {
 
 NETWORK=nt_$(date +%Y%m%d)
 
-docker rm -f nginx_test reverse_test > /dev/null 2>&1
+docker rm -f nginx_test reverse_test
+docker network rm ${NETWORK}
 
 f_log INF "Create network ..."
 docker network create ${NETWORK}
@@ -66,7 +67,7 @@ fi
 
 sleep 30
 f_log INF "Try curl on reverse-nginx ..."
-curl $(docker inspect --format='{{.NetworkSettings.IPAddress}}' reverse_test):8080 reverse_test
+curl $(docker inspect --format='{{.NetworkSettings.IPAddress}}' reverse_test):8080
 if [ $? -eq 0 ]; then
   f_log SUC "Try curl on reverse-nginx successful"
 else
