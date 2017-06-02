@@ -39,6 +39,7 @@ matrix:
     - lufi
     - lutim
     - manage-this-node
+    - medusa
     - nginx
     - nginx-php
     - openssh
