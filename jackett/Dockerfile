@@ -1,12 +1,12 @@
 FROM xataz/alpine:3.6
 
-ARG JACKETT_VER=0.7.1437
+ARG JACKETT_VER=0.7.1467
 
 ENV UID=991 \
     GID=991
 
 LABEL description="Jackett based on alpine" \
-      tags="latest 0.7.1437 0.7 0" \
+      tags="latest 0.7.1467 0.7 0" \
       maintainer="xataz <https://github.com/xataz>" \
       build_ver="2017060301"
 
