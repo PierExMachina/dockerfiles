@@ -10,7 +10,7 @@ EXPOSE 6379
 LABEL description="redis based on alpine" \
       tags="unstable-cli" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017052701"
+      build_ver="2017060301"
 
 RUN export BUILD_DEPS="wget \
                     linux-headers \

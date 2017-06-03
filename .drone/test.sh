@@ -33,40 +33,38 @@ f_log() {
     echo -e "${COLOR}=${TYPE}= $TIMENOW : ${MSG}${CEND}"
 }
 
-if [ -e .tmp/images.txt ]; then
-    for image in $(cat .tmp/images.txt); do
-        if [ -e .drone/test_${DOCKERFILE}.sh ]; then
-            chmod +x .drone/test_${DOCKERFILE}.sh
-            .drone/test_${DOCKERFILE}.sh
-        else
-            f_log INF "Run container of ${image}"
-            docker run -d --name test-container ${image}
-            sleep 30
-            f_log INF "Test if container is running"
-            docker ps | grep test-container > /dev/null 2>&1
-            if [ $? -ne 0 ]; then
-                docker rm -f test-container > /dev/null 2>&1
-                f_log ERR "The container is not running"
-                exit 1
-            else
-                f_log SUC "The container is running"
-                for port in $(docker inspect --format='{{range $p, $conf := .NetworkSettings.Ports}} {{$p}} {{end}}' test-container | cut -d/ -f1); do
-                    f_log INF "Test if port $port is exposed"
-                    curl $(docker inspect --format='{{.NetworkSettings.IPAddress}}' test-container):$port > /dev/null 2>&1
-                    if [ $? -ne 0 ]; then
-                        docker rm -f test-container > /dev/null 2>&1
-                        f_log ERR "The port $port is not exposed"
-                        exit 1
-                    else
-                        f_log SUC "The port $port is exposed"
-                    fi
-                done
-            fi
+if [ -e .drone/test_${DOCKERFILE}.sh ]; then
+    chmod +x .drone/test_${DOCKERFILE}.sh
+    .drone/test_${DOCKERFILE}.sh
+# elif [ -e .tmp/images.txt ]; then
+#     for image in $(cat .tmp/images.txt); do
+#         f_log INF "Run container of ${image}"
+#         docker run -d --name test-container ${image}
+#         sleep 30
+#         f_log INF "Test if container is running"
+#         docker ps | grep test-container > /dev/null 2>&1
+#         if [ $? -ne 0 ]; then
+#             docker rm -f test-container > /dev/null 2>&1
+#             f_log ERR "The container is not running"
+#             exit 1
+#         else
+#             f_log SUC "The container is running"
+#             for port in $(docker inspect --format='{{range $p, $conf := .NetworkSettings.Ports}} {{$p}} {{end}}' test-container | cut -d/ -f1); do
+#                 f_log INF "Test if port $port is exposed"
+#                 curl $(docker inspect --format='{{.NetworkSettings.IPAddress}}' test-container):$port > /dev/null 2>&1
+#                 if [ $? -ne 0 ]; then
+#                     docker rm -f test-container > /dev/null 2>&1
+#                     f_log ERR "The port $port is not exposed"
+#                     exit 1
+#                 else
+#                     f_log SUC "The port $port is exposed"
+#                 fi
+#             done
+#         fi
 
-            docker rm -f test-container > /dev/null 2>&1
-            f_log SUC "successful"
-        fi
-    done
+#         docker rm -f test-container > /dev/null 2>&1
+#         f_log SUC "successful"
+#     done
 else
     f_log INF "No test for ${DOCKERFILE}"
 fi
