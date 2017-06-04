@@ -9,7 +9,7 @@ ENV GID=991 \
 LABEL description="Emby based on alpine" \
       tags="latest 3.2.19.0 3.2 3" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017060301"
+      build_ver="2017060401"
 
 RUN export BUILD_DEPS="build-base \
                         git \
@@ -39,6 +39,7 @@ RUN export BUILD_DEPS="build-base \
     && make install \
     && mkdir /embyServer /embyData \
     && wget https://github.com/MediaBrowser/Emby/releases/download/${EMBY_VER}/Emby.Mono.zip -O /tmp/Emby.Mono.zip \
+    && ln -s /usr/lib/libsqlite3.so.0 /usr/lib/libsqlite3.so \
     && unzip /tmp/Emby.Mono.zip -d /embyServer \
     && apk del $BUILD_DEPS \
     && rm -rf /var/cache/apk/* /tmp/*
