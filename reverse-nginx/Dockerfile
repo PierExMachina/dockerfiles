@@ -21,6 +21,7 @@ ARG NGINX_CONF="--prefix=/nginx \
                 --with-http_stub_status_module \
                 --with-threads \
                 --with-pcre-jit \
+                --with-ipv6 \
                 --without-http_ssi_module \
                 --without-http_scgi_module \
                 --without-http_uwsgi_module \
