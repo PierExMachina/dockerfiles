@@ -1,5 +1,7 @@
 FROM xataz/alpine:3.5
 
+ARG LUTIM_VER=0.8.1
+
 ENV GID=991 \
     UID=991 \
     CONTACT=contact@domain.tld \
@@ -10,9 +12,9 @@ ENV GID=991 \
     MAX_DELAY=0
 
 LABEL description="lutim based on alpine" \
-      tags="latest" \
+      tags="latest 0.8.1 0.8" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017060301"
+      build_ver="2017061401"
 
 RUN BUILD_DEPS="build-base \
                 libressl-dev \
@@ -22,14 +24,16 @@ RUN BUILD_DEPS="build-base \
                 perl-dev \
                 libidn-dev \
                 wget \
-                imagemagick-dev" \
+                imagemagick-dev \
+                postgresql-dev \
+                gnupg \
+                zlib-dev" \
     && apk add -U ${BUILD_DEPS} \
                 libressl \
                 perl \
                 libidn \
                 perl-crypt-rijndael \
                 perl-test-manifest \
-                perl-net-ssleay \
                 imagemagick \
                 shared-mime-info \
                 tini \
@@ -37,7 +41,7 @@ RUN BUILD_DEPS="build-base \
     && echo | cpan \
     && cpan install Carton \
     && cd / \
-    && git clone https://git.framasoft.org/luc/lutim.git /usr/lutim \
+    && git clone -b ${LUTIM_VER} https://git.framasoft.org/luc/lutim.git /usr/lutim \
     && echo "requires 'Image::Magick';" >> /usr/lutim/cpanfile \
     && echo "requires 'Mojolicious::Plugin::AssetPack::Backcompat';" >> /usr/lutim/cpanfile \
     && cd /usr/lutim \

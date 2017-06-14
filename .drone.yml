@@ -28,24 +28,5 @@ pipeline:
 
 matrix:
   DOCKERFILE:
-    - bower
-    - compose
-    - couchpotato
-    - emby
-    - golang
-    - jackett
-    - letsencrypt
-    - lstu
-    - lufi
     - lutim
-    - manage-this-node
-    - medusa
-    - nginx
-    - nginx-php
-    - openssh
-    - redis
-    - reverse-nginx
-    - rtorrent-rutorrent
-    - rundeck
-    - sickrage
-    - transmission
+    - handbrake
