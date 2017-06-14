@@ -14,7 +14,7 @@ ENV GID=991 \
 LABEL description="lutim based on alpine" \
       tags="latest 0.8.1 0.8" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017061401"
+      build_ver="2017061402"
 
 RUN BUILD_DEPS="build-base \
                 libressl-dev \
@@ -38,6 +38,7 @@ RUN BUILD_DEPS="build-base \
                 shared-mime-info \
                 tini \
                 su-exec \
+                postgresql-libs \
     && echo | cpan \
     && cpan install Carton \
     && cd / \
