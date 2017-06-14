@@ -28,4 +28,4 @@ pipeline:
 
 matrix:
   DOCKERFILE:
-    - lutim
+    - lufi
