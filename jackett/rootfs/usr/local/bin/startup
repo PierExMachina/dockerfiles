@@ -4,6 +4,7 @@ addgroup -g ${GID} jackett && adduser -h /home/jackett -s /bin/sh -G jackett -u 
 
 mkdir -p /home/jackett/.config/Jackett
 chown -R jackett:jackett /usr/Jackett /home/jackett /etc/s6.d
+chmod u+x /etc/s6.d/jackett/run /etc/s6.d/.s6-svscan/finish
 
 APIKEY=${APIKEY-$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)}
 INSTANCEID=${INSTANCEID-$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 100 | head -n 1)}

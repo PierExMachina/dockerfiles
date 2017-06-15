@@ -8,7 +8,7 @@ ENV UID=991 \
 LABEL description="Jackett based on alpine" \
       tags="latest 0.7.1483 0.7 0" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017061503"
+      build_ver="2017061504"
 
 RUN apk add --no-cache wget \
             libcurl \
@@ -23,7 +23,7 @@ RUN apk add --no-cache wget \
 EXPOSE 9117
 
 COPY rootfs /
-RUN chmod +x /usr/local/bin/startup /etc/s6.d/*/*
+RUN chmod +x /usr/local/bin/startup
 
 ENTRYPOINT ["/usr/local/bin/startup"]
 CMD ["s6-svscan", "/etc/s6.d"]

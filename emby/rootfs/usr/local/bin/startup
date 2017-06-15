@@ -4,6 +4,7 @@
 addgroup -g ${GID} emby && adduser -H -h /embyData -s /bin/sh -G emby -u ${UID} -D emby
 
 chown -R emby:emby /embyServer /embyData /etc/s6.d
+chmod +x /etc/s6.d/emby/run /etc/s6.d/.s6-svscan/finish
 
 if [ '$@' == '' ]; then
     exec su-exec emby:emby /bin/s6-svscan /etc/s6.d

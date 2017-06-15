@@ -3,7 +3,7 @@
 EMBY_VERSION=$(grep "EMBY_VER=" Dockerfile | cut -d"=" -f2)
 NEW_EMBY_VERSION=$(curl https://github.com/MediaBrowser/Emby/releases/latest 2> /dev/null | sed 's#.*tag/##;s#">.*##')
 MEDIAINFO_VERSION=$(grep "MEDIAINFO_VER=" Dockerfile | cut -d"=" -f2)
-NEW_MEDIAINFO_VERSION=$(curl https://mediaarea.net/en/MediaInfo 2> /dev/null | grep "Graphical User Interface with installer" | sed 's/.*version //;s/, Graphical.*//')
+NEW_MEDIAINFO_VERSION=$(curl https://mediaarea.net/en/MediaInfo 2> /dev/null | grep -Eo '[0-9]{1,4}\.[0-9]{1,4}\.[0-9]{1,4}')
 
 
 f_gen_tag() {
