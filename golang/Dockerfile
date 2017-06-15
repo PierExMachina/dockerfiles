@@ -13,7 +13,7 @@ LABEL description="Golang based on alpine" \
       glibc_ver="2.25-r0" \
       golang_ver="1.8.3" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017060301"
+      build_ver="2017061501"
 
 RUN BUILD_DEPS="wget \
                 tar \
