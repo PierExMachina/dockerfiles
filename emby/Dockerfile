@@ -9,20 +9,19 @@ ENV GID=991 \
 LABEL description="Emby based on alpine" \
       tags="latest 3.2.20.0 3.2 3" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017061502"
+      build_ver="2017061503"
 
 RUN export BUILD_DEPS="build-base \
                         git \
                         unzip \
                         wget \
                         ca-certificates" \
-    && apk add -U imagemagick \
+    && apk add --no-cache imagemagick \
 	            sqlite \
 	            ffmpeg \
 	            s6 \
                 su-exec \
                 $BUILD_DEPS \
-    && apk add -U --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ mono python2 \
     && wget http://mediaarea.net/download/binary/mediainfo/${MEDIAINFO_VER}/MediaInfo_CLI_${MEDIAINFO_VER}_GNU_FromSource.tar.gz -O /tmp/MediaInfo_CLI_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
     && wget http://mediaarea.net/download/binary/libmediainfo0/${MEDIAINFO_VER}/MediaInfo_DLL_${MEDIAINFO_VER}_GNU_FromSource.tar.gz -O /tmp/MediaInfo_DLL_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
     && tar xzf /tmp/MediaInfo_DLL_${MEDIAINFO_VER}_GNU_FromSource.tar.gz -C /tmp \
@@ -42,7 +41,7 @@ RUN export BUILD_DEPS="build-base \
     && ln -s /usr/lib/libsqlite3.so.0 /usr/lib/libsqlite3.so \
     && unzip /tmp/Emby.Mono.zip -d /embyServer \
     && apk del $BUILD_DEPS \
-    && rm -rf /var/cache/apk/* /tmp/*
+    && rm -rf /tmp/*
 
 EXPOSE 8096 8920 7359/udp
 VOLUME /embyData
