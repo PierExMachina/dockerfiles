@@ -1,4 +1,4 @@
-FROM xataz/alpine:3.6
+FROM xataz/mono:5
 
 ARG MEDIAINFO_VER=
 ARG EMBY_VER=3.2.20.0
@@ -9,7 +9,7 @@ ENV GID=991 \
 LABEL description="Emby based on alpine" \
       tags="latest 3.2.20.0 3.2 3" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017061501"
+      build_ver="2017061502"
 
 RUN export BUILD_DEPS="build-base \
                         git \
