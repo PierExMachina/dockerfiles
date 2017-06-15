@@ -13,4 +13,4 @@ sed -i -e 's|<secret>|'${SECRET}'|' \
         -e 's|<max_delay>|'${MAX_DELAY}'|' /usr/lufi/lufi.conf
 
 cd /usr/lufi
-exec su-exec lufi:lufi /sbin/tini -- /usr/local/bin/carton exec morbo /usr/lufi/script/lufi --listen http://0.0.0.0:8081
+exec su-exec lufi:lufi /sbin/tini -- /usr/local/bin/carton exec hypnotoad -f /usr/lufi/script/lufi --listen http://0.0.0.0:8081
