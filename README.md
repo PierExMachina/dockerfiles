@@ -11,3 +11,9 @@ If you don't trust, you can build yourself images. Instructions are on README.
 
 ## Contributing
 Any contributions, are very welcome !
+
+### How to
+* Fork this project
+* Create a branch for your feature
+* Edit .drone.yml, and edit _matrix_ value with list of modify images (for drone's build)
+* Create Pull Request
