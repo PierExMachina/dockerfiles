@@ -36,6 +36,7 @@ RUN BUILD_DEPS="build-base \
     && git clone https://git.framasoft.org/luc/lufi.git /usr/lufi \
     && cd /usr/lufi \
     && rm -rf cpanfile.snapshot \
+    && sed -i 's/requires "Mojolicious";/requires "Mojolicious", "< 7.31";/' cpanfile \
     && carton install \
     && apk del -y ${BUILD_DEPS} \
     && rm -rf /var/cache/apk/* /root/.cpan* /usr/lufi/local/cache/* /usr/lufi/utilities
