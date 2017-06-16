@@ -12,7 +12,7 @@ ENV GID=991 \
 LABEL description="lufi based on alpine" \
       tags="latest" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017061501"
+      build_ver="2017061601"
 
 RUN BUILD_DEPS="build-base \
                 libressl-dev \
@@ -42,7 +42,7 @@ RUN BUILD_DEPS="build-base \
     
 VOLUME /usr/lufi/files /usr/lufi/data
 
-EXPOSE 8080
+EXPOSE 8081
 
 ADD startup /usr/local/bin/startup
 ADD lufi.conf /usr/lufi/lufi.conf
