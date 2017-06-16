@@ -3,7 +3,7 @@ FROM xataz/alpine:3.6
 LABEL description="docker-compose based on alpine" \
       tags="latest 2.4.3 2.4 2" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017061601"
+      build_ver="2017061602"
 
 ARG SHINKEN_VER=2.4.3
 ARG SHINKEN_CUSTOM_MODULES=""
