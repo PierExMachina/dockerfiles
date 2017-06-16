@@ -1,0 +1,4 @@
+#!/bin/sh
+
+
+exec shinken-arbiter -c /etc/shinken/shinken.cfg

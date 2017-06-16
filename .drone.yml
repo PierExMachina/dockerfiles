@@ -28,5 +28,4 @@ pipeline:
 
 matrix:
   DOCKERFILE:
-    - emby
-    - jackett
+    - shinken
