@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ "${UID}" != $(id -u shinken) ]; then
     usermod -u ${UID} shinken
@@ -8,17 +8,31 @@ if [ "${GID}" != $(id -g shinken) ]; then
     usermod -u ${GID} shinken
 fi
 
-mkdir -p /etc/shinken/custom_configs
+# for folder in $(find /etc/shinken -type d); do
+#     mkdir -p $(echo $folder | sed 's@/etc/shinken@/shinken/config@g')
+# done
 
-cp -a /etc/shinken/* /shinken/config/
+# for file in $(find /etc/shinken -type f); do
+#     if [ ! -e $(echo $file | sed 's@/etc/shinken@/shinken/config@g') ]; then
+#         mv $file $(echo $file | sed 's@/etc/shinken@/shinken/config@g')
+#     fi
+# done
 
-sed -i 's@etc = /etc/shinken@etc = /shinken/' /shinken/.shinken.ini
+# rm -rf /etc/shinken
+# ln -s /shinken/config /etc/shinken
+
+mkdir -p /shinken/config/{hosts,services,templates} /var/run/shinken
+
+#cp -a /etc/shinken/* /shinken/config
+
+#sed -i 's@etc = /etc/shinken@etc = /shinken/config@' /shinken/.shinken.ini
 
 if [ ! -e /shinken/htpasswd.users ]; then
     echo "admin:$(openssl passwd -1 password)" > /shinken/htpasswd.users
 fi
 
 if [ ! -e /shinken/.ssh/id_rsa ]; then
+    mkdir -p /shinken/.ssh
     ssh-keygen -t rsa -b 4096 -f /shinken/.ssh/id_rsa -N ""
 fi
 
@@ -26,8 +40,8 @@ if [ "${SHINKEN_CUSTOM_MODULES}" != "" ]; then
     for module in ${SHINKEN_CUSTOM_MODULES}; do su - shinken -c "shinken install ${module}"; done
 fi
 
-chown -R shinken:shinken /etc/s6.d /shinken /var/lib/shinken
+chown -R shinken:shinken /etc/s6.d /shinken /var/lib/shinken /var/run/shinken
 find /etc/s6.d -type f -exec chmod u+x {} \;
 chmod +x /etc/s6.d/.s6-svscan/finish
 
-exec su-exec shinken:shinken s6-svscan $@
+exec su-exec shinken:shinken $@
