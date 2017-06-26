@@ -8,24 +8,7 @@ if [ "${GID}" != $(id -g shinken) ]; then
     usermod -u ${GID} shinken
 fi
 
-# for folder in $(find /etc/shinken -type d); do
-#     mkdir -p $(echo $folder | sed 's@/etc/shinken@/shinken/config@g')
-# done
-
-# for file in $(find /etc/shinken -type f); do
-#     if [ ! -e $(echo $file | sed 's@/etc/shinken@/shinken/config@g') ]; then
-#         mv $file $(echo $file | sed 's@/etc/shinken@/shinken/config@g')
-#     fi
-# done
-
-# rm -rf /etc/shinken
-# ln -s /shinken/config /etc/shinken
-
-mkdir -p /shinken/config/{hosts,services,templates} /var/run/shinken
-
-#cp -a /etc/shinken/* /shinken/config
-
-#sed -i 's@etc = /etc/shinken@etc = /shinken/config@' /shinken/.shinken.ini
+mkdir -p /shinken/config/{hosts,services,templates,commands,contacts,contactgroups,hostgroups,servicegroups,timeperiods} /var/run/shinken
 
 if [ ! -e /shinken/htpasswd.users ]; then
     echo "admin:$(openssl passwd -1 password)" > /shinken/htpasswd.users
@@ -40,8 +23,17 @@ if [ "${SHINKEN_CUSTOM_MODULES}" != "" ]; then
     for module in ${SHINKEN_CUSTOM_MODULES}; do su - shinken -c "shinken install ${module}"; done
 fi
 
-chown -R shinken:shinken /etc/s6.d /shinken /var/lib/shinken /var/run/shinken
+mv /opt/graphite/conf/graphite.wsgi.example /opt/graphite/webapp/graphite/graphite_wsgi.py
+mv /opt/graphite/conf/storage-aggregation.conf.example /opt/graphite/conf/storage-aggregation.conf
+mv /opt/graphite/conf/dashboard.conf.example /opt/graphite/conf/dashboard.conf
+mv /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
+
+PYTHONPATH=/opt/graphite/webapp django-admin migrate --settings=graphite.settings --run-syncdb
+
+ln -s /usr/share/zoneinfo/${TZ} /etc/localtime
+
+chown -R shinken:shinken /etc/s6.d /shinken /var/lib/shinken /var/run/shinken /etc/shinken /opt/graphite /var/lib/nginx /etc/nginx /var/log/nginx
 find /etc/s6.d -type f -exec chmod u+x {} \;
-chmod +x /etc/s6.d/.s6-svscan/finish
+chmod +x /etc/s6.d/.s6-svscan/finish /var/lib/shinken/libexec/check_localhost_*.sh
 
 exec su-exec shinken:shinken $@

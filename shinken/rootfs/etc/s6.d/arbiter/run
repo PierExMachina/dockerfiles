@@ -1,3 +1,5 @@
 #!/bin/sh
 
-exec shinken-arbiter -c /etc/shinken/shinken.cfg
+sleep 10
+
+exec shinken-arbiter -c /etc/shinken/shinken.cfg 2>&1 | sed 's/^\(.*\)$/arbiter : \1/g'

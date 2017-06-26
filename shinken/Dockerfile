@@ -6,7 +6,8 @@ LABEL description="docker-compose based on alpine" \
       build_ver="2017061603"
 
 ENV UID=1000 \
-    GID=1000
+    GID=1000 \
+    TZ=Europe/Paris
 
 ARG SHINKEN_VER=2.4.3
 ARG SHINKEN_CUSTOM_MODULES=""
@@ -28,7 +29,10 @@ RUN BUILD_DEPS="build-base \
                         auth-htpasswd \
                         sqlitedb \
                         booster-nrpe \
-                        auth-cfg-password" \
+                        auth-cfg-password \
+                        ui-graphite \
+                        graphite \
+                        simple-log" \
     && apk add --no-cache ${BUILD_DEPS} \
                             python2 \
                             su-exec \
@@ -38,11 +42,18 @@ RUN BUILD_DEPS="build-base \
                             ca-certificates \
                             nagios-plugins-all \
                             nrpe \
+                            nrpe-plugin \
                             bash \
                             shadow \
                             openssh \
+                            cairo \
+                            fontconfig \
+                            tzdata \
+                            py-setuptools \
+                            nginx \
                             ${CUSTOM_PACKAGES} \
     && adduser -h /shinken -u 1000 -g 1000 -D shinken \
+    && pip install cffi \
     && pip install pycurl \
                     shinken==${SHINKEN_VER} \
                     pymongo \
@@ -53,6 +64,11 @@ RUN BUILD_DEPS="build-base \
                     alignak_backend_client \
                     paramiko \
                     cherrypy==3.5.0 \
+                    graphite-web \
+                    whisper \
+                    carbon \
+                    scandir \
+                    gunicorn \
                     ${CUSTOM_PYTHON_PACKAGES} \
     && su - shinken -c 'shinken --init' \
     && for module in ${SHINKEN_MODULES} ${SHINKEN_CUSTOM_MODULES}; do su - shinken -c "shinken install ${module}"; done \

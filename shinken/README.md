@@ -4,11 +4,13 @@
 > If you don't trust, you can build yourself.
 
 ## Features
-* Based on Alpine Linux.
+* Based on Alpine Linux
 * Latest version of Shinken
+* All In One
 * Persitance configuration
-* No **ROOT** process.
+* No **ROOT** process
 * Add your own plugins
+* Graphite for beautifull graphs
 
 ## Tag available
 * latest, 2.4.3, 2.4, 2 [(Dockerfile)](https://github.com/xataz/dockerfiles/blob/master/shinken/Dockerfile)
@@ -40,16 +42,18 @@ docker build -t xataz/shinken github.com/xataz/dockerfiles.git#master:shinken
 * GID : Choose gid for launch shinken (default : 991)
 
 ### Volumes
-* /shinken : All configuration files are here
+* /shinken : Configuration files are here
 
 ### Ports
-* 7767
+* 7767 : Port of Shinken
+* 8080 : Port of Graphite
 
 ## Usage
 ```shell
 $ docker run -d -v /docker/config/shinken:/shinken \
             -e UID=1001 -e GID=12000 \
-            -p 8080:7767 \
+            -p 7767:7767 \
+            -p 8080:8080 \
             xataz/shinken
 ```
 
