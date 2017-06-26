@@ -4,7 +4,7 @@ FROM xataz/alpine:edge
 LABEL description="handbrake based on alpine" \
       tags="latest" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017061501"
+      build_ver="2017062601"
 
 ENV UID=991 \
     GID=991

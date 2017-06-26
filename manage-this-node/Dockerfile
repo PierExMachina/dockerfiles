@@ -3,7 +3,7 @@ FROM xataz/node:8
 LABEL Description="manage-this-node based on alpine" \
       tags="latest" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017061501"
+      build_ver="2017062601"
 
 RUN BUILD_DEPS="git \
                 ca-certificates" \

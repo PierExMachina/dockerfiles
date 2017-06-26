@@ -4,12 +4,13 @@ ARG MEDIAINFO_VER=0.7.96
 ARG EMBY_VER=3.2.20.0
 
 ENV GID=991 \
-    UID=991
+    UID=991 \
+    PREMIERE=false
 
 LABEL description="Emby based on alpine" \
       tags="latest 3.2.20.0 3.2 3" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017061504"
+      build_ver="2017062601"
 
 RUN export BUILD_DEPS="build-base \
                         git \
@@ -41,7 +42,7 @@ RUN export BUILD_DEPS="build-base \
     && wget https://github.com/MediaBrowser/Emby/releases/download/${EMBY_VER}/Emby.Mono.zip -O /tmp/Emby.Mono.zip \
     && ln -s /usr/lib/libsqlite3.so.0 /usr/lib/libsqlite3.so \
     && unzip /tmp/Emby.Mono.zip -d /embyServer \
-    && apk del $BUILD_DEPS \
+    && apk del --no-cache $BUILD_DEPS \
     && rm -rf /tmp/*
 
 EXPOSE 8096 8920 7359/udp
