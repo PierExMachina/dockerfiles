@@ -1,0 +1,111 @@
+[submodule "alpine"]
+	path = alpine
+	url = https://github.com/xataz/docker-alpine
+	branch = master
+[submodule "compose"]
+	path = compose
+	url = https://github.com/xataz/docker-compose
+	branch = master
+[submodule "handbrake"]
+	path = handbrake
+	url = https://github.com/xataz/docker-handbrake
+	branch = master
+[submodule "letsencrypt"]
+	path = letsencrypt
+	url = https://github.com/xataz/docker-letsencrypt
+	branch = master
+[submodule "lufi"]
+	path = lufi
+	url = https://github.com/xataz/docker-lufi
+	branch = master
+[submodule "manage-this-node"]
+	path = manage-this-node
+	url = https://github.com/xataz/docker-manage-this-node
+	branch = master
+[submodule "mono"]
+	path = mono
+	url = https://github.com/xataz/docker-mono
+	branch = master
+[submodule "nginx-php"]
+	path = nginx-php
+	url = https://github.com/xataz/docker-nginx-php
+	branch = master
+[submodule "reverse-nginx"]
+	path = reverse-nginx
+	url = https://github.com/xataz/docker-reverse-nginx
+	branch = master
+[submodule "rundeck"]
+	path = rundeck
+	url = https://github.com/xataz/docker-rundeck
+	branch = master
+[submodule "shinken"]
+	path = shinken
+	url = https://github.com/xataz/docker-shinken
+	branch = master
+[submodule "sickrage"]
+	path = sickrage
+	url = https://github.com/xataz/docker-sickrage
+	branch = master
+[submodule "bower"]
+	path = bower
+	url = https://github.com/xataz/docker-bower
+	branch = master
+[submodule "couchpotato"]
+	path = couchpotato
+	url = https://github.com/xataz/docker-couchpotato
+	branch = master
+[submodule "emby"]
+	path = emby
+	url = https://github.com/xataz/docker-emby
+	branch = master
+[submodule "golang"]
+	path = golang
+	url = https://github.com/xataz/docker-golang
+	branch = master
+[submodule "jackett"]
+	path = jackett
+	url = https://github.com/xataz/docker-jackett
+	branch = master
+[submodule "lstu"]
+	path = lstu
+	url = https://github.com/xataz/docker-lstu
+	branch = master
+[submodule "lutim"]
+	path = lutim
+	url = https://github.com/xataz/docker-lutim
+	branch = master
+[submodule "medusa"]
+	path = medusa
+	url = https://github.com/xataz/docker-medusa
+	branch = master
+[submodule "nginx"]
+	path = nginx
+	url = https://github.com/xataz/docker-nginx
+	branch = master
+[submodule "node"]
+	path = node
+	url = https://github.com/xataz/docker-node
+	branch = master
+[submodule "openssh"]
+	path = openssh
+	url = https://github.com/xataz/docker-openssh
+	branch = master
+[submodule "redis"]
+	path = redis
+	url = https://github.com/xataz/docker-redis
+	branch = master
+[submodule "rtorrent-rutorrent"]
+	path = rtorrent-rutorrent
+	url = https://github.com/xataz/docker-rtorrent-rutorrent
+	branch = master
+[submodule "samba"]
+	path = samba
+	url = https://github.com/xataz/docker-samba
+	branch = master
+[submodule "transmission"]
+	path = transmission
+	url = https://github.com/xataz/docker-transmission
+	branch = master
+[submodule "docker-drone-plugin"]
+	path = docker-drone-plugin
+	url = https://github.com/xataz/docker-drone-plugin
