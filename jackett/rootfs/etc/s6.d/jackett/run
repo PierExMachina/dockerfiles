@@ -1,4 +1,0 @@
-#!/bin/sh
-
-cd /usr/Jackett
-exec mono JackettConsole.exe

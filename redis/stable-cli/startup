@@ -1,9 +1,0 @@
-#!/bin/sh
-
-addgroup -g ${GID} redis && adduser -h /var/lib/redis -s /bin/sh -u ${UID} -D -G redis redis 
-
-if [ '$@' == '' ]; then
-    exec su-exec redis:redis /sbin/tini -- redis-cli --help
-else
-    exec su-exec redis:redis /sbin/tini -- redis-cli "$@"
-fi

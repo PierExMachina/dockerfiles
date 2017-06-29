@@ -1,5 +1,0 @@
-#!/bin/sh
-
-addgroup -g ${GID} compose && adduser -h /home/compose -s /bin/sh -G compose -D -u ${UID} compose
-
-exec su-exec compose:compose /sbin/tini -- docker-compose "$@"
