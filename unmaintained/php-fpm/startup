@@ -1,6 +1,0 @@
-#!/bin/sh
-
-addgroup -g ${GID} -S php && adduser -u ${UID} -D -S -G php php
-chown php:php /proc/self/fd/2
-
-exec su-exec php:php /sbin/tini -- php-fpm

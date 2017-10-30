@@ -1,8 +1,0 @@
-#!/bin/sh
-
-addgroup -g ${GID} cardigann && adduser -h /home/cardigann -D -G cardigann -s /bin/sh -u ${UID} cardigann
-
-chown -R cardigann:cardigann /cardigann
-
-cd /cardigann
-exec su-exec cardigann:cardigann /sbin/tini -- $@

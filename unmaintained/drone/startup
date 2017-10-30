@@ -1,6 +1,0 @@
-#!/bin/sh
-
-mkdir -p /config
-chown ${UID}:${GID} /config
-
-exec su-exec ${UID}:${GID} /sbin/tini -- $@
