@@ -1,8 +1,0 @@
-#!/bin/sh
-
-addgroup -g ${GID} sonerezh && adduser -h /home/sonerezh -s /bin/sh -G sonerezh -D -u ${UID} sonerezh
-
-chown -R sonerezh:sonerezh /var/www /etc/s6.d /home/sonerezh /var/lib/nginx /etc/php5 /etc/nginx /var/log /tmp /data
-chmod u+x /etc/s6.d/nginx/run /etc/s6.d/php5/run /etc/s6.d/.s6-svscan/finish
-
-exec su-exec sonerezh:sonerezh $@
