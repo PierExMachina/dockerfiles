@@ -6,6 +6,7 @@ In this repository, you will find lots of dockerfiles, with a philosophy of bein
 Most dockerfiles, are based on [alpine Linux](http://alpinelinux.org/), which is a very light GNU/Linux distribution.
 
 ## List
+Now, all my images have their own repository.
 * alpine ([github](https://github.com/xataz/docker-alpine), [hub](https://hub.docker.com/r/xataz/alpine)) 
 * bower ([github](https://github.com/xataz/docker-bower), [hub](https://hub.docker.com/r/xataz/bower))
 * clairctl ([github](https://github.com/xataz/docker-clairctl), [hub](https://hub.docker.com/r/xataz/clairctl))
